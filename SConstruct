@@ -3,4 +3,10 @@ env = Environment(
   SHLIBPREFIX='',
 )
 
-env.LoadableModule('sleep', ['sleep.cpp'])
+env.Alias(
+  'install',
+  env.Install('/usr/local/bin', 'intervalbeep'),
+  env.Install(
+    '/usr/local/lib/lua/5.3', env.LoadableModule('sleep', ['sleep.cpp']),
+  ),
+)
