@@ -1,0 +1,18 @@
+#!/usr/bin/env lua5.3
+
+local function sleep(t)
+  return os.execute('sleep ' .. t)
+end
+
+local function intervalBeep(interval, previous)
+  local now = os.time()
+  local nextBeep = (previous or now // interval * interval) + interval
+  if (sleep(nextBeep - now)) then
+    io.write(('\a%s\n'):format(os.date('%F %R')))
+    return intervalBeep(interval, nextBeep)
+  end
+end
+
+-- Main program
+
+intervalBeep((tonumber(arg[1]) or 60) * 60)
