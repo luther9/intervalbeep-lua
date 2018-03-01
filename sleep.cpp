@@ -14,7 +14,7 @@ namespace {
 
   const struct luaL_Reg lib[] = {
     entry(sleep),
-    {NULL, NULL}
+    {nullptr, nullptr}
   };
 }
 
