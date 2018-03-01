@@ -5,12 +5,14 @@ local sleep = require('sleep').sleep
 local function intervalBeep(interval, previous)
   local now = os.time()
   local nextBeep = (previous or now // interval * interval) + interval
-  if (sleep(nextBeep - now) == 0) then
+  if pcall(sleep, nextBeep - now) then
     io.write(('\a%s\n'):format(os.date('%F %R')))
     return intervalBeep(interval, nextBeep)
+  else
+    io.write('\n')
   end
 end
 
 -- Main program
 
-intervalBeep((tonumber(arg[1]) or 60) * 60)
+intervalBeep((tonumber(arg[1]) or 10) * 60)
